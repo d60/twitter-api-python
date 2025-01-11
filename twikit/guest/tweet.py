@@ -79,6 +79,8 @@ class Tweet:
         Information about URLs contained in the tweet.
     full_text : :class:`str` | None
         The full text of the tweet.
+    bookmark_count : :class:`int` | None
+        The number of bookmarks of the tweet.
     """
 
     def __init__(self, client: GuestClient, data: dict, user: User = None) -> None:
@@ -114,6 +116,14 @@ class Tweet:
         self.view_count: str = data['views'].get('count') if 'views' in data else None
         self.view_count_state: str = data['views'].get('state') if 'views' in data else None
         self.has_community_notes: bool = data.get('has_birdwatch_notes')
+
+         # Get bookmark count from public_metrics if available, otherwise from legacy
+        public_metrics = data.get('public_metrics', {})
+        self.bookmark_count: int | None = (
+            public_metrics.get('bookmark_count') 
+            if public_metrics.get('bookmark_count') is not None 
+            else legacy.get('bookmark_count')
+        )
 
         if data.get('quoted_status_result'):
             quoted_tweet = data.pop('quoted_status_result')['result']

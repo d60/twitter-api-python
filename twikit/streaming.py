@@ -116,6 +116,7 @@ def _event_from_data(name: str, data: dict) -> StreamEventType:
         retweet_count = data.get('retweet_count')
         quote_count = data.get('quote_count')
         reply_count = data.get('reply_count')
+        bookmark_count = data.get('bookmark_count')
         view_count = None
         view_count_state = None
         if 'view_count_info' in data:
@@ -123,7 +124,8 @@ def _event_from_data(name: str, data: dict) -> StreamEventType:
             view_count_state = data['view_count_info']['state']
         return TweetEngagementEvent(
             like_count, retweet_count, view_count,
-            view_count_state, quote_count, reply_count
+            view_count_state, quote_count, reply_count,
+            bookmark_count
         )
 
     if name == 'dm_update':
@@ -186,7 +188,8 @@ class TweetEngagementEvent(NamedTuple):
     view_count: str | None  #: The number of views of the tweet.
     view_count_state: str | None  #: The state of view count.
     quote_count: int | None  #: The number of quotes of the tweet.
-    reply_count: int | None  # The number of Replies of the tweet.
+    reply_count: int | None  #: The number of replies of the tweet.
+    bookmark_count: int | None  #: The number of bookmarks of the tweet.
 
 
 class DMUpdateEvent(NamedTuple):
