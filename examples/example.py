@@ -90,6 +90,7 @@ async def main():
         f'text {tweet.text}',
         f'favorite count: {tweet.favorite_count}',
         f'media: {tweet.media}',
+        f'bookmark count: {tweet.bookmark_count}',
         sep='\n'
     )
 
