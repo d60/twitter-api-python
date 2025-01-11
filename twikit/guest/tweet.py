@@ -117,11 +117,12 @@ class Tweet:
         self.view_count_state: str = data['views'].get('state') if 'views' in data else None
         self.has_community_notes: bool = data.get('has_birdwatch_notes')
 
-        # Get bookmark count from public_metrics if available, otherwise from legacy
+         # Get bookmark count from public_metrics if available, otherwise from legacy
         public_metrics = data.get('public_metrics', {})
         self.bookmark_count: int | None = (
-            public_metrics.get('bookmark_count') or 
-            legacy.get('bookmark_count')
+            public_metrics.get('bookmark_count') 
+            if public_metrics.get('bookmark_count') is not None 
+            else legacy.get('bookmark_count')
         )
 
         if data.get('quoted_status_result'):
