@@ -129,8 +129,9 @@ class Tweet:
         # Get bookmark count from public_metrics if available, otherwise from legacy
         public_metrics = data.get('public_metrics', {})
         self.bookmark_count: int | None = (
-            public_metrics.get('bookmark_count') or 
-            legacy.get('bookmark_count')
+            public_metrics.get('bookmark_count') 
+            if public_metrics.get('bookmark_count') is not None 
+            else legacy.get('bookmark_count')
         )
 
         if data.get('quoted_status_result'):
