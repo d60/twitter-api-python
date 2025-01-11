@@ -678,8 +678,7 @@ class GQLClient:
             'includePromotedContent': True,
             'withBirdwatchNotes': True,
             'withVoice': True,
-            'withCommunity': True,
-            'withPublicMetrics': True
+            'withCommunity': True
         }
         return await self.gql_get(Endpoint.TWEET_RESULTS_BY_REST_IDS, variables, TWEET_RESULTS_BY_REST_IDS_FEATURES)
 
@@ -692,8 +691,7 @@ class GQLClient:
             'tweetId': tweet_id,
             'withCommunity': False,
             'includePromotedContent': False,
-            'withVoice': False,
-            'withPublicMetrics': True
+            'withVoice': False
         }
         params = {
             'fieldToggles': {
